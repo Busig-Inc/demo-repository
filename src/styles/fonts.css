@@ -1,0 +1,5 @@
+/* Шрифты игры лежат здесь же, интернет не нужен. Лицензия SIL OFL, тексты в fonts/OFL-*.txt.
+   Jost: заголовки, метки, числа. Golos Text: интерфейс и тексты. Оба переменные, веса 400-700. */
+@font-face{font-family:"Jost";src:url(/fonts/Jost-Variable.ttf) format("truetype");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Jost";src:url(/fonts/Jost-Italic-Variable.ttf) format("truetype");font-weight:400 700;font-style:italic;font-display:swap}
+@font-face{font-family:"Golos Text";src:url(/fonts/GolosText-Variable.ttf) format("truetype");font-weight:400 700;font-style:normal;font-display:swap}

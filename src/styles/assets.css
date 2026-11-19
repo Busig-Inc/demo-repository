@@ -1,0 +1,23 @@
+/* Все картинки игры в одном месте. Чтобы заменить картинку, положите новый файл с ТЕМ ЖЕ ИМЕНЕМ в ту же папку.
+   Экраны больше ничего не трогают. Пути считаются от этого файла. Подробности: ASSETS.md.
+   Сейчас в файлах-заглушках лежат похожие картинки, они отмечены в ASSETS.md. */
+:root{
+  /* карты, 16:9, от 2560×1440 */
+  --img-map-world:url(/img/maps/world.webp);
+  --img-map-city:url(/img/maps/toronto.jpg);
+  /* сцены, 16:9, 1920×1080 */
+  --img-scene-archive:url(/img/scenes/archive.jpg);       /* S0, S11 Архив */
+  --img-scene-lab:url(/img/scenes/lab.jpg);               /* S1 Лаборатория */
+  --img-scene-desk:url(/img/scenes/desk.jpg);             /* стол с журналом, финал H */
+  --img-scene-corridor:url(/img/scenes/corridor.jpg);     /* S2 Больничный коридор */
+  --img-scene-connaught:url(/img/scenes/connaught.jpg);   /* S3, S5 Кабинет Connaught */
+  --img-scene-telegraph:url(/img/scenes/telegraph.jpg);   /* S4, S5M Телеграф */
+  --img-scene-macleod:url(/img/scenes/macleod.jpg);       /* S6, финал L Кабинет Маклеода */
+  --img-scene-council:url(/img/scenes/council.jpg);       /* S7 Комната заседаний */
+  --img-scene-site:url(/img/scenes/site.jpg);             /* S8, S9, финалы N F R Площадка и лаборатория с аппаратом */
+  --img-scene-indy:url(/img/scenes/indy.jpg);             /* S8 и финал P Индианаполис */
+  --img-scene-final:url(/img/scenes/final.jpg);           /* запасной фон финалов */
+  --img-cover:url(/img/scenes/cover.jpg);                 /* обложка миссии */
+  /* запасной портрет: показывается, пока нет файла персонажа в img/portraits/ */
+  --img-portrait:url(/img/lab.jpg);
+}

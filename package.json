@@ -1,9 +1,18 @@
 {
-  "name": "demo-repo",
-  "version": "0.2.0",
-  "description": "A sample package.json",
-  "dependencies": {
-    "@primer/css": "17.0.1"
+  "name": "architecture-financing-demo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "MVP образовательной игры «Архитектура финансирования»: миссия «Инсулин»",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
   },
-  "license": "MIT"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
 }
