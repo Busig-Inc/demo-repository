@@ -19,7 +19,7 @@ export function createState() {
     wAlloc: null,         // { group, method, research }
     riskApproved: false,
     s8: { compared: false, cycle: false },
-    s8n: { advance: false, refund: false },
+    s8n: { advance: false, refund: false, done: false },
     s9: null,             // 'control' | 'research' | 'reserve'
     snapshots: {},
   };
@@ -66,7 +66,7 @@ const HANDLERS = {
     if (e.plan === 'W') s.wAlloc = { group: !!e.wAlloc?.group, method: !!e.wAlloc?.method, research: !!e.wAlloc?.research };
   },
   s8(s, e) { ['compared', 'cycle'].includes(e.step) || fail('s8: ' + e.step); s.s8[e.step] = true; },
-  s8n(s, e) { ['advance', 'refund'].includes(e.step) || fail('s8n: ' + e.step); s.s8n[e.step] = true; },
+  s8n(s, e) { ['advance', 'refund', 'done'].includes(e.step) || fail('s8n: ' + e.step); s.s8n[e.step] = true; },
   s9(s, e) {
     ['control', 'research', 'reserve'].includes(e.choice) || fail('s9: ' + e.choice);
     if (s.s9) fail('Выбор в S9 уже сделан');
