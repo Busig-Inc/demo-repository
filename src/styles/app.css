@@ -1,0 +1,103 @@
+/* Дополнения MVP поверх дизайн-пакета. Только токены из tokens.css, один радиус --r, янтарь только у доступного сейчас. */
+
+/* [hidden] должен скрывать всегда: в пакете .pop{display:grid} перебивал атрибут. */
+[hidden]{display:none !important}
+
+/* Браузерные мелочи тоже в палитре */
+::selection{background:var(--lamp);color:var(--lamp-ink)}
+:focus-visible{outline:var(--focus);outline-offset:3px}
+a{color:var(--stamp-blue);text-underline-offset:3px}
+.cal, .frows, .tally, .bneed, .cf{font-variant-numeric:tabular-nums}
+
+/* Шапка сцены: области прижаты вправо, как в макете */
+.top>[data-r="areas"]{margin-left:auto}
+.top>[data-r="areas"] .areas{margin-left:0}
+
+/* Действия сцены: закрытое объясняет причину, переход отличается от действия */
+.act2{cursor:pointer;color:var(--text)}
+.act2[aria-disabled="true"]{border-style:dashed;border-color:var(--rule-2);color:var(--muted);background:rgba(251,251,247,.9);cursor:not-allowed}
+.act2[aria-disabled="true"] .tick{display:inline-flex;color:var(--muted)}
+.act2.link{border-color:var(--rule-2)}
+.cta2{cursor:pointer}
+.pk[disabled]{cursor:default;opacity:.7}
+
+/* Карточка предложения, которое появится в следующей версии */
+.nextv{display:inline-flex;align-items:center;gap:6px;margin:6px 0 2px;padding:4px 10px;border:1px dashed var(--rule-2);border-radius:var(--r);font:500 13px/1.3 var(--f-ui);color:var(--muted)}
+.btns2[aria-pressed="true"]{background:var(--text);color:var(--panel);border-color:var(--text)}
+
+/* Старт: справка, быстрый показ, сообщение о сбросе сохранения */
+.start .notice{margin:0;padding:10px 14px;border:1px solid var(--rule-2);border-radius:var(--r);background:var(--panel-2);font-size:14px;color:var(--text)}
+.start-help{display:grid;gap:8px;text-align:left;font-size:14px;color:var(--text)}
+.start-help p{margin:0}
+.demo-link{background:none;border:0;padding:4px 2px;font:500 14px/1.2 var(--f-ui);color:var(--muted);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.demo-link:hover,.demo-link[aria-expanded="true"]{color:var(--text)}
+.demo{display:grid;gap:8px;width:100%;text-align:left}
+.demo b{font:600 15px/1.2 var(--f-ui)}
+.demo p{margin:0;font-size:14px;max-width:none}
+.demo-route{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:12px;height:48px;padding:0 14px 0 8px;border:1px solid var(--rule-2);border-radius:var(--r);background:var(--panel);font:600 14px/1.2 var(--f-ui);text-align:left;cursor:pointer}
+.demo-route:hover{border-color:var(--text);background:var(--panel-2)}
+.demo-route .code{display:grid;place-items:center;width:32px;height:32px;border-radius:var(--r);background:var(--text);color:var(--panel);font:600 15px/1 var(--f-acc)}
+
+/* Карта Торонто: кнопка в досье не сжимается */
+.drawer .btn{flex:none;min-height:46px}
+
+/* Совет S7 */
+.areas-slot{margin-left:auto}
+.plan-q{font:600 20px/1.25 var(--f-ui);margin-top:4px}
+.plans button{cursor:pointer;display:inline-flex;align-items:center;gap:2px}
+.plans button.closed{border-style:dashed;color:var(--muted)}
+.plans button.closed .i{margin-left:6px;color:var(--muted)}
+.plans button.closed[aria-checked="true"]{background:var(--panel-2);color:var(--text);border-color:var(--text);border-style:dashed}
+.plan-name{margin:6px 0 0;font:600 17px/1.3 var(--f-ui)}
+.plan-closed,.warn-box,.risk-box{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;align-items:start;padding:12px 14px;border:1px solid var(--rule-2);border-radius:var(--r);background:var(--panel)}
+.plan-closed p{margin:0;font-size:14.5px}
+.warn-box,.risk-box{border-color:rgba(178,74,44,.45);background:rgba(178,74,44,.07)}
+.warn-box .i,.risk-box .i{color:var(--risk)}
+.warn-box b,.risk-box b{display:block;font:600 14.5px/1.3 var(--f-ui);margin-bottom:4px}
+.warn-box p,.risk-box p{margin:0 0 8px;font-size:14px;line-height:1.45}
+.risk-box.ok{border-color:var(--rule-2);background:var(--panel)}
+.risk-box.ok .i{color:var(--text)}
+.okline{display:flex;align-items:center;gap:6px;font-weight:600}
+.alloc{margin:0;padding:12px 14px;border:1px solid var(--rule-2);border-radius:var(--r);display:grid;gap:8px}
+.alloc legend{padding:0 6px;font:600 14px/1.2 var(--f-ui)}
+.pk-row{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:center;cursor:pointer;font-size:14px}
+.pk-row input{width:18px;height:18px;accent-color:var(--text)}
+.pk-row b{display:block;font-weight:600}.pk-row small{color:var(--muted)}
+.pk-row em{font:600 15px/1 var(--f-acc);font-style:normal}
+.alloc .hint{margin:0;font-size:13px;color:var(--muted)}
+.sign{justify-self:stretch;display:flex;justify-content:space-between;align-items:center;height:46px;padding:0 18px;border:0;border-radius:var(--r);background:var(--lamp);color:var(--lamp-ink);font:600 15px/1 var(--f-ui);cursor:pointer;flex:none}
+.sign:hover{background:var(--lamp-hover)}
+.sign[disabled]{background:transparent;border:1px dashed var(--rule-2);color:var(--muted);cursor:not-allowed}
+.panel .note{font-size:13px;color:var(--muted)}
+.btn-second{display:flex;align-items:center;gap:8px;height:42px;padding:0 16px;border:1px solid var(--text);border-radius:var(--r);background:transparent;font:600 14px/1 var(--f-ui);cursor:pointer;justify-self:start}
+.confirm{display:grid;gap:8px;padding:14px;border:1px solid var(--text);border-radius:var(--r);background:var(--panel)}
+.confirm b{font:600 16px/1.3 var(--f-ui)}
+.confirm p{margin:0;font-size:14px}
+.confirm .row{display:flex;gap:8px;justify-content:space-between;align-items:center}
+.confirm .row .sign{flex:1}
+
+/* Разбор S11 */
+.steps{list-style:none;margin:0;padding:0}
+.opps{display:grid;gap:14px}
+.opp-group h3{margin:0 0 6px;font:600 12px/1.2 var(--f-acc);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.opp-group.used h3{color:var(--text)}
+.opp{padding:10px 14px;border:1px solid var(--rule-2);border-radius:var(--r);background:var(--panel);margin-bottom:6px}
+.opp-group.missed .opp{border-style:dashed;background:transparent}
+.opp-group.declined .opp{background:var(--paper-light)}
+.opp b{display:block;font:600 15px/1.3 var(--f-ui);margin-bottom:2px}
+.opp p{margin:0;font-size:14px;line-height:1.45;color:var(--text)}
+.chain{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--rule)}
+.chain:first-of-type{border-top:0}
+.chain .c{font:600 15px/1.4 var(--f-acc)}
+.chain dl{margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:4px 12px;font-size:14px}
+.chain dt{color:var(--muted)}.chain dd{margin:0}
+.facts a{white-space:nowrap}
+.cf{display:grid;border:1px solid var(--rule-2);border-radius:var(--r);overflow:hidden;margin-top:10px}
+.cf-h,.cf-r{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:12px;padding:8px 14px;font-size:14px;border-top:1px solid var(--rule)}
+.cf-h{border-top:0;background:var(--panel-2)}
+.cf-h b{font:600 12px/1.3 var(--f-acc);letter-spacing:.1em;text-transform:uppercase}
+.cf-r span{color:var(--muted)}
+.cf-r.final{font-weight:600}
+.cf-r.changed{background:rgba(231,169,75,.16)}
+.cf-r.changed div:last-child{font-weight:600}
+.field input::placeholder{color:var(--muted)}

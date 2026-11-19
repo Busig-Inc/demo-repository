@@ -1,0 +1,56 @@
+/* Перенесено из дизайн-пакета: экран_план.html */
+
+/* Комната заседаний: слева календарь и смета, справа план и подпись. Только из tokens.css и components.css. */
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:var(--t-body);overflow:hidden}
+h1,h2,p{margin:0}button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:var(--focus);outline-offset:3px}
+.fit{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden}
+.stage{position:relative;width:1280px;height:720px;flex:none;background:var(--img-scene-council) center/cover;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(241,242,236,.92) 0,rgba(241,242,236,0) 22%)}
+.iconbtn{height:36px;min-width:36px;padding:0 12px;display:flex;align-items:center;gap:8px;border:1px solid var(--rule-2);border-radius:var(--r);background:rgba(251,251,247,.94);font-size:13px}
+.top{position:absolute;z-index:5;left:28px;right:28px;top:20px;display:flex;align-items:flex-start;gap:16px}
+.where{display:grid;gap:6px}.where h1{font:var(--t-loc);font-size:34px;line-height:1}
+.areas{margin-left:auto}
+.tools{display:flex;gap:6px}
+.panel{position:absolute;z-index:4;top:88px;bottom:28px;background:rgba(251,251,247,.97);border:1px solid var(--rule-2);border-radius:var(--r);padding:16px;display:grid;gap:12px;align-content:start;overflow:auto}
+.left{left:28px;width:640px}
+.right{right:28px;width:540px}
+.panel .budget .brow{padding:9px 14px}
+.budget .st[hidden]{display:none}
+.panel .cal-r{padding-block:3px}
+.say{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:center;padding:10px 12px;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
+.say .arch{width:72px;background-color:var(--panel-2);background-image:url(img/portraits/defries.jpg),var(--img-portrait);background-size:cover,520%;background-position:center,60% 30%;background-repeat:no-repeat;box-shadow:0 0 0 3px var(--panel),0 0 0 4px var(--rule-2)}
+.say p{font-size:14.5px;line-height:1.45}.say b{font:600 13px/1.2 var(--f-acc);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+.toast{position:absolute;z-index:9;left:50%;bottom:30px;transform:translateX(-50%);display:none;align-items:center;gap:10px;padding:10px 16px;background:var(--text);color:var(--bg);border-radius:var(--r);font-size:14px;font-weight:600}
+.toast.on{display:inline-flex}
+
+/* вход в сцену: сначала только картинка, потом окна по очереди */
+:root{--t-scene-hold:1.2s;--t-panel:.55s;--t-panel-step:.18s}
+.stage.intro .top,.stage.intro .panel,.stage.intro .talk,.stage.intro .side{opacity:0;transform:translateY(14px);pointer-events:none}
+.stage .top,.stage .panel,.stage .talk,.stage .side{transition:opacity var(--t-panel) ease,transform var(--t-panel) cubic-bezier(.2,.7,.2,1)}
+.stage.shown .top{transition-delay:0s}
+.stage.shown .left,.stage.shown .talk{transition-delay:var(--t-panel-step)}
+.stage.shown .right,.stage.shown .side{transition-delay:calc(var(--t-panel-step)*2)}
+@media (prefers-reduced-motion:reduce){.stage.intro .top,.stage.intro .panel,.stage.intro .talk,.stage.intro .side{opacity:1;transform:none;pointer-events:auto}.stage .top,.stage .panel,.stage .talk,.stage .side{transition:none}}
+.bstrip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--panel);border:1px solid var(--rule);border-radius:var(--r)}
+.bstrip>div{padding:10px 14px;border-left:1px solid var(--rule);display:grid;gap:4px}
+.bstrip>div:first-child{border-left:0}
+.bstrip .n{font:600 30px/1 var(--f-acc);font-variant-numeric:tabular-nums}
+.bstrip .z .n{color:var(--rule-2)}
+.bstrip .l{font:600 11px/1.2 var(--f-acc);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.bstrip .st{font:600 10px/1 var(--f-acc);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--muted);padding:3px 5px;justify-self:start}
+.pop{position:absolute;z-index:8;left:28px;top:88px;width:600px;max-height:calc(100% - 116px);overflow:auto;padding:14px;background:rgba(251,251,247,.98);border:1px solid var(--rule-2);border-radius:var(--r);display:grid;gap:10px}
+.pop .ph{display:flex;justify-content:space-between}
+.dlg{position:absolute;z-index:4;left:28px;bottom:28px;width:600px}
+.dlg .say{background:rgba(251,251,247,.97);border:1px solid var(--rule-2)}
+.cta{position:absolute;z-index:4;right:28px;bottom:28px;height:50px;padding:0 22px;display:flex;align-items:center;gap:14px;border:0;border-radius:var(--r);background:var(--lamp);color:var(--lamp-ink);font:600 16px/1 var(--f-ui);box-shadow:0 14px 26px -14px rgba(27,21,8,.6)}
+.cta[hidden]{display:none}
+.cta:hover{background:var(--lamp-hover)}
+.panel.right{transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1)}
+.panel.right.closed{opacity:0;transform:translateX(24px);pointer-events:none;visibility:hidden}
+.closex{position:absolute;right:10px;top:10px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule-2);border-radius:var(--r);background:var(--panel)}
+.stage.intro .dlg,.stage.intro .cta{opacity:0;transform:translateY(14px);pointer-events:none}
+.stage .dlg,.stage .cta{transition:opacity var(--t-panel) ease,transform var(--t-panel) cubic-bezier(.2,.7,.2,1)}
+.stage.shown .dlg{transition-delay:var(--t-panel-step)}
+.stage.shown .cta{transition-delay:calc(var(--t-panel-step)*2)}

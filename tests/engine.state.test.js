@@ -94,3 +94,30 @@ describe('save / load', () => {
     expect(load(st).state).toBe(null);
   });
 });
+
+describe('отметка выполненных действий', () => {
+  it('act отмечает действие сцены и не пишет в журнал', () => {
+    const s = apply(createState(), [{ type: 'visit', scene: 's1' }, { type: 'act', scene: 's1', id: 'journal' }]);
+    expect(s.acts['s1.journal']).toBe(true);
+    expect(s.journal.some((e) => e.type === 'act')).toBe(false);
+  });
+});
+
+describe('дополнение запроса в совете', () => {
+  it('полный запрос, дополненный в совете, отмечает обнаружение расходов в S7', () => {
+    const s = apply(createState(), [{ type: 'request', full: false }, { type: 'go', to: 'council' }, { type: 'request', full: true }]);
+    expect(s.request).toBe('full');
+    expect(s.costsSeenAt).toBe('S7');
+  });
+});
+
+describe('записка о своей организации', () => {
+  it('note сохраняет пять полей записки', () => {
+    const fields = ['Метод', 'Люди', 'Фонд', 'Права на данные', 'Позвонить'];
+    const s = apply(createState(), { type: 'note', fields });
+    expect(s.note).toEqual(fields);
+  });
+  it('note без пяти строк отвергается', () => {
+    expect(() => apply(createState(), { type: 'note', fields: ['одно'] })).toThrow();
+  });
+});

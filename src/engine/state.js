@@ -21,6 +21,7 @@ export function createState() {
     s8: { compared: false, cycle: false },
     s8n: { advance: false, refund: false, done: false },
     s9: null,             // 'control' | 'research' | 'reserve'
+    acts: {},             // выполненные действия сцен: 's1.journal' → true
     snapshots: {},
   };
 }
@@ -43,11 +44,12 @@ const fail = (msg) => { throw new Error(msg); };
 
 const HANDLERS = {
   go(s, e) { s.at = e.to; },
+  act(s, e) { (s.acts ||= {})[e.scene + '.' + e.id] = true; },
   visit(s, e) { if (!s.visited.includes(e.scene)) s.visited.push(e.scene); s.at = 'scene/' + e.scene; },
   doc(s, e) { if (!s.folder.includes(e.id)) s.folder.push(e.id); },
   request(s, e) {
     s.request = e.full ? 'full' : 'invoice';
-    if (e.full && !s.plan) s.costsSeenAt = 'S1';
+    if (e.full && !s.plan && !s.costsSeenAt) s.costsSeenAt = s.at === 'council' ? 'S7' : 'S1';
   },
   hospital(s, e) { ['honest', 'overpromise'].includes(e.status) || fail('hospital: ' + e.status); s.hospital = e.status; },
   offer(s, e) {
@@ -55,6 +57,7 @@ const HANDLERS = {
     s.offers[e.key] = e.value;
   },
   research(s) { s.researchPlaced = true; },
+  note(s, e) { (Array.isArray(e.fields) && e.fields.length === 5) || fail('note: нужно 5 полей'); s.note = e.fields.map(String); },
   risk(s) { s.riskApproved = true; },
   sign(s, e) {
     if (s.plan) fail('План уже подписан');
@@ -81,7 +84,7 @@ function applyOne(s, e) {
   const h = HANDLERS[e && e.type] || fail('Неизвестный эффект: ' + (e && e.type));
   const scene = s.at.startsWith('scene/') ? s.at.slice(6) : s.at;
   h(s, e);
-  if (e.type !== 'go') {
+  if (e.type !== 'go' && e.type !== 'act') {
     const entry = { scene, type: e.type, value: e[VALUE[e.type]] ?? null };
     if (e.key) entry.key = e.key;
     s.journal.push(entry);
