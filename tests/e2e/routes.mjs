@@ -98,6 +98,33 @@ const ROUTES = {
   'preset-H': async (p) => { await demo(p, 'H'); await council(p, 'H'); await afterSign(p, 'H', 'reserve'); await review(p, 'S10H', 'preset-H'); },
   'preset-L': async (p) => { await demo(p, 'L'); await council(p, 'L'); await afterSign(p, 'L', 'control'); await review(p, 'S10L', 'preset-L'); },
   'preset-N': async (p) => { await demo(p, 'N'); await council(p, 'N'); await afterSign(p, 'N'); await review(p, 'S10N', 'preset-N'); },
+  'review-exit-world': async (p) => {
+    await demo(p, 'L'); await council(p, 'L'); await afterSign(p, 'L', 'control'); await review(p, 'S10L', 'exit');
+    for (const id of ['path', 'note']) {
+      await act(p, id);
+      if (id === 'note') { for (let i = 0; i < 5; i++) await p.fill('#nf' + i, 'Проверка метода ' + i); await p.click('[data-r="sv"]'); }
+      await closeWin(p);
+    }
+    await next(p); await p.waitForTimeout(300);
+    if (!p.url().includes('#/world')) throw new Error('после разбора ожидалась карта мира, адрес ' + p.url());
+  },
+  'reopen-no-duplicates': async (p) => {
+    await fresh(p); await p.click('[data-r="begin"]'); await p.waitForTimeout(200);
+    await scene(p, 's4'); await act(p, 'bundle'); for (const i of [0, 1, 2, 3]) await pick(p, '.pk[data-i="' + i + '"]'); await confirm(p); await closeWin(p);
+    for (let k = 0; k < 2; k++) { await act(p, 'gift'); await pick(p, '.offer[data-i="0"] .btns2[data-d="0"]'); await closeWin(p); }
+    const n = await p.evaluate(() => JSON.parse(localStorage.getItem('afg.insulin')).journal.filter((e) => e.type === 'offer' && e.key === 'gift' && e.value === 'accepted').length);
+    if (n !== 2) throw new Error('два нажатия «Принять» дали ' + n + ' записей в журнале');
+  },
+  's9-once': async (p) => {
+    await demo(p, 'L'); await council(p, 'L');
+    await act(p, 'compare'); await p.click('.wf .btnp'); await closeWin(p);
+    await act(p, 'cycle'); for (const i of [0, 1, 2]) await pick(p, '.pk[data-i="' + i + '"]'); await confirm(p); await closeWin(p);
+    await next(p);
+    await act(p, 'last'); await pick(p, '.pk[data-i="0"]'); await confirm(p);
+    if (await p.isEnabled('.pk[data-i="1"]')) { await pick(p, '.pk[data-i="1"]'); if (await p.isEnabled('.wf .btnp')) await confirm(p); }
+    const s9 = await p.evaluate(() => JSON.parse(localStorage.getItem('afg.insulin')).s9);
+    if (s9 !== 'control') throw new Error('ожидался выбор control, в состоянии ' + s9);
+  },
   'reload-after-sign': async (p) => {
     await demo(p, 'L'); await council(p, 'L');
     await p.reload(); await p.waitForTimeout(500);

@@ -38,7 +38,10 @@ function budgetHTML(s) {
   const pend = (on) => (on ? ' <span class="st">' + t('budget.pending') + '</span>' : '');
   const row = (n, key, hint, pending) => '<div class="brow' + (n ? '' : ' zero') + '"><span class="num">' + n + '</span><span><b>' + t('budget.' + key) + pend(pending) + '</b><small>' + t('budget.' + hint) + '</small></span></div>';
   const free = row(l.free.left, 'free', plan ? 'freeHintPlan' : 'freeHint');
-  const target = row(l.target.total - l.target.spent, 'target', l.target.total ? 'targetHintPlan' : 'targetHint', l.target.status === 'pending');
+  const unused = l.target.status === 'unused';
+  const target = unused
+    ? '<div class="brow zero"><span class="num">0</span><span><b>' + t('budget.target') + '</b><small>Дар не использован: выбранный план не покупает аппарат, дарителю сообщили об отказе.</small></span></div>'
+    : row(l.target.total - l.target.spent, 'target', l.target.total ? 'targetHintPlan' : 'targetHint', l.target.status === 'pending');
   const kind = row(l.kind.total - l.kind.used, 'kind', l.kind.total || s.offers.exchange === 'narrow' ? 'kindHintPlan' : 'kindHint', !plan && s.offers.exchange === 'narrow');
   const spent = l.free.spent.length
     ? '<div class="bneed"><span class="lbl">Оплачено из свободных</span>' + l.free.spent.map((x) => '<div class="r">' + workName(x.work) + '<i></i><em>' + x.cost + '</em></div>').join('') + '</div>'

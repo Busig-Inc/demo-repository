@@ -11,7 +11,7 @@ const actKey = (sceneId, id) => sceneId + '.' + id;
 export function renderScene(root, S, { store, go, signal, kind = 'scene' }) {
   useStyles('scene');
   const st = () => store.get();
-  const isDone = (id) => !!st().acts?.[actKey(S.id, id)];
+  const isDone = (id) => { const a = S.actions.find((x) => x.id === id); return a?.done ? a.done(st()) : !!st().acts?.[actKey(S.id, id)]; };
   const isOpen = (a) => !a.when || a.when(st());
   const portrait = S.speaker.portrait
     ? ' style="background-image:url(' + S.speaker.portrait + '),var(--img-portrait);background-size:cover,520%;background-position:center top,60% 30%;background-repeat:no-repeat"'
@@ -82,7 +82,9 @@ export function renderScene(root, S, { store, go, signal, kind = 'scene' }) {
     closePop();
     lastOpener = opener || null;
     const w = a.window;
-    const body = $('wb'), foot = $('wf');
+    // Новые узлы на каждое открытие: обработчики прошлого окна не копятся.
+    const body = $('wb').cloneNode(false), foot = $('wf').cloneNode(false);
+    $('wb').replaceWith(body); $('wf').replaceWith(foot);
     body.innerHTML = '<h2>' + w.title + '</h2>'; foot.innerHTML = '';
     win.setAttribute('aria-label', w.title);
     let first = true;
@@ -91,7 +93,7 @@ export function renderScene(root, S, { store, go, signal, kind = 'scene' }) {
       msg: (o) => (a.msg ? a.msg(o) : null),
       done: (outcome) => {
         if (!a.effect) return;
-        const fx = [].concat(a.effect(outcome) || []);
+        const fx = [].concat(a.effect(outcome, st()) || []);
         store.dispatch([{ type: 'act', scene: S.id, id: a.id }, ...fx]);
         refresh();
         if (first && ['pack', 'choice', 'assign', 'match', 'offers'].includes(w.type)) say(t('ui.done'));

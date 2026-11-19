@@ -89,6 +89,8 @@ export function restoreFrom(s, altId) {
   const r = structuredClone(base);
   r.snapshots = isS9 ? { beforeSign: structuredClone(s.snapshots.beforeSign) } : {};
   r.at = isS9 ? 'scene/s9' : 'council';
+  if (isS9) delete r.acts?.['s9.last']; // снимок сделан в одной пачке с отметкой действия
+  else r.demo = altId.slice(5);         // совет сразу предлагает выбранный план
   r.replayOf = altId;
   r.original = { journal: structuredClone(s.journal), plan: s.plan, s9: s.s9, final: resolveFinal(s) };
   return r;

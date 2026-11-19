@@ -95,6 +95,7 @@ export function guardRoute(s, route) {
   }
   const step = toRoute(stepAfterSign(s));
   if (name === 'final' || name === 'review') return resolveFinal(s) ? route : step;
+  if (name === 'world' && resolveFinal(s)) return route; // после финала — выход на карту мира
   if (name === 'scene') {
     const local = s.plan === 'L' || s.plan === 'H';
     const ok = (id === 's8' && local) || (id === 's9' && local && s.s8.cycle) || (id === 's8n' && s.plan === 'N');

@@ -28,7 +28,7 @@ export function createState() {
 
 export const OFFER_VALUES = {
   gift: ['seen', 'accepted', 'declined'],
-  exchange: ['broad', 'narrow', 'refused'],
+  exchange: ['none', 'broad', 'narrow', 'refused'],
   pilot: ['seen'],
   morrowN: ['seen', 'taken', 'declined'],
   morrowF: ['seen'],

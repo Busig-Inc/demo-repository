@@ -74,10 +74,12 @@ export const scenes = {
       actions: {
         offers: {
           // Карточка 0 — совместная проверка, карточка 1 — пилот (следующая версия).
-          effect: (o) => {
+          // Взять приложение после отказа можно: до совета переговоры не закрыты.
+          effect: (o, st) => {
             const { card, decision } = o.value;
             if (card === 1) return { type: 'offer', key: 'pilot', value: 'seen' };
-            return decision === 0 ? doc('annexCheck') : { type: 'offer', key: 'exchange', value: 'refused' };
+            if (decision === 1) return { type: 'offer', key: 'exchange', value: 'refused' };
+            return st?.offers.exchange === 'refused' ? [doc('annexCheck'), { type: 'offer', key: 'exchange', value: 'none' }] : doc('annexCheck');
           },
         },
         exchange: {
@@ -145,6 +147,7 @@ export const scenes = {
       cycle: {
         when: (s) => s.s8.compared,
         whenHint: 'Сначала наложите отчёты',
+        done: (s) => s.s8.cycle, // неполный цикл не считается выполненным
         effect: (o) => (o.ok ? { type: 's8', step: 'cycle' } : []),
       },
     },
@@ -215,8 +218,9 @@ const s9L = {
         { t: 'Сохранить исследование', h: 'Подтверждение этапа переносится', good: true, value: 'research', fb: 'Бантинг смотрит на переставленные карточки: «Ты уверен, что сейчас это важнее? Тогда я скажу, что нового подтверждённого объёма пока не будет».' },
         { t: 'Оставить единицу в резерве', h: 'Обе работы ждут', good: true, value: 'reserve', fb: 'Единица остаётся у Connaught. Контроль и исследование ждут следующего периода.' },
       ],
-      confirm: 'Подтвердить',
+      confirm: 'Подтвердить', once: true,
     },
+    when: (s) => !s.s9, whenHint: 'Выбор сделан, он идёт в финал',
     effect: (o) => ({ type: 's9', choice: o.value }),
   }],
   required: ['last'],
@@ -238,8 +242,9 @@ const s9H = {
         { t: 'Направить на исследование Маклеода', h: 'Первый опыт в этой стадии', good: true, value: 'research', fb: 'Исследовательский шаг сохраняется в этой стадии. Маклеод получает время на постановку и первый опыт.' },
         { t: 'Оставить в резерве', h: 'Вопрос остаётся неоплаченным', good: true, value: 'reserve', fb: 'Остаток увеличивается, записка Маклеода остаётся в папке будущих работ.' },
       ],
-      confirm: 'Подтвердить',
+      confirm: 'Подтвердить', once: true,
     },
+    when: (s) => !s.s9, whenHint: 'Выбор сделан, он идёт в финал',
     effect: (o) => ({ type: 's9', choice: o.value }),
   }],
   required: ['last'],
