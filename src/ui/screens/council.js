@@ -44,14 +44,14 @@ export function renderCouncil(root, { store, go, signal }) {
   function drawPlans() {
     const a = avail();
     $('plans').innerHTML = MISSION.planOrder.map((k) => '<button role="radio" data-plan="' + k + '" aria-checked="' + (k === cur) + '"' + (a[k].open ? '' : ' class="closed"') + '>'
-      + k + '<small>' + P[k].name + '</small>' + (a[k].open ? '' : ic('locked', 16)) + '</button>').join('');
+      + P[k].name + (a[k].open ? '' : ic('locked', 16)) + '</button>').join('');
   }
 
   function drawDetail() {
     const s = store.get(); const a = avail()[cur]; const p = P[cur];
     $('line').textContent = p.line || t('s7.line');
     $('areas').innerHTML = areasHTML(s, a.open ? cur : null);
-    let h = '<h3 class="plan-name">' + cur + ' · ' + esc(p.full) + '</h3>';
+    let h = '<h3 class="plan-name">' + esc(p.full) + '</h3>';
     if (!a.open) {
       h += '<div class="plan-closed">' + ic('locked', 20) + '<p>' + t(a.reason) + '</p></div>'
         + '<div class="signsum">' + p.rows.map(([x, y]) => '<div class="r"><span>' + x + '</span><div>' + y + '</div></div>').join('') + '</div>'
@@ -59,7 +59,7 @@ export function renderCouncil(root, { store, go, signal }) {
       $('detail').innerHTML = h; return;
     }
     const gap = s.request !== 'full';
-    if (gap) h += '<div class="warn-box">' + ic('risk', 20) + '<div><b>Запрос на поддержку без освоения и проверки</b><p>Дефицит обнаружился здесь: после покупки нужны люди и проверка. Дополните запрос, прежде чем подписывать.</p><button class="btns2" data-r="supplement">Дополнить запрос</button></div></div>';
+    if (gap) h += '<div class="warn-box">' + ic('risk', 20) + '<div><b>В списке для Бантинга нет людей и проверки</b><p>После покупки аппарату нужны освоение и проверка. Допишите их в список, прежде чем подписывать.</p><button class="btns2" data-r="supplement">Дописать список</button></div></div>';
     h += '<div class="signsum">' + p.rows.map(([x, y]) => '<div class="r"><span>' + x + '</span><div>' + y + '</div></div>').join('') + '</div>';
     if (cur === 'W') {
       h += '<fieldset class="alloc"><legend>' + t('plan.allocTitle') + '</legend>' + p.alloc.map((x) => '<label class="pk-row"><input type="checkbox" data-alloc="' + x.k + '"' + (alloc[x.k] ? ' checked' : '') + '><span><b>' + x.t + '</b><small>' + x.h + '</small></span><em>1</em></label>').join('') + '<p class="hint">' + t('plan.allocNote') + ' В резерве останется: ' + (3 - Object.values(alloc).filter(Boolean).length) + ' ед.</p></fieldset>';
@@ -71,7 +71,7 @@ export function renderCouncil(root, { store, go, signal }) {
     }
     h += '<span class="stampm"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>' + t('s7.stamp') + '</span>';
     if (confirming) {
-      h += '<div class="confirm" role="alertdialog" aria-labelledby="cfT"><b id="cfT">' + t('plan.confirmTitle', { plan: cur }) + '</b><p>' + t('plan.confirmText') + '</p><div class="row"><button class="btns2" data-r="cancel">' + t('plan.confirmNo') + '</button><button class="sign" data-r="yes"><span>' + t('plan.confirmYes') + '</span>' + ic('next', 20) + '</button></div></div>';
+      h += '<div class="confirm" role="alertdialog" aria-labelledby="cfT"><b id="cfT">' + t('plan.confirmTitle', { plan: P[cur].name }) + '</b><p>' + t('plan.confirmText') + '</p><div class="row"><button class="btns2" data-r="cancel">' + t('plan.confirmNo') + '</button><button class="sign" data-r="yes"><span>' + t('plan.confirmYes') + '</span>' + ic('next', 20) + '</button></div></div>';
     } else {
       h += '<button class="sign" data-r="sign"' + (needRisk || gap ? ' disabled' : '') + '><span>' + t('plan.sign') + '</span>' + ic('next', 20) + '</button>'
         + '<span class="note">' + (needRisk ? t('plan.needRisk') : t('plan.signNote')) + '</span>';

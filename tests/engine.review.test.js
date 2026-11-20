@@ -41,13 +41,13 @@ describe('opportunityMap', () => {
     expect(['missed', 'declined']).toContain(status(m, 'gift'));
     const morrow = m.find((o) => o.id === 'morrow');
     expect(morrow.status).toBe('used');
-    expect(morrow.note).toMatch(/невозвратн/i);
+    expect(morrow.note).toMatch(/без возврата/i);
     expect(morrow.note).toMatch(/3/);
   });
 
   it('пилот в этой версии не считается упущенным', () => {
     const m = opportunityMap(Nroute(), content);
-    expect(m.find((o) => o.id === 'pilot').note).toMatch(/следующей версии/);
+    expect(m.find((o) => o.id === 'pilot')).toBeUndefined(); // P скрыт до следующей версии
   });
 
   it('у каждой возможности есть заголовок и допустимый статус', () => {
@@ -103,11 +103,11 @@ describe('alternatives и counterfactual', () => {
     expect(ids).toEqual(['plan:W']);
   });
 
-  it('H → L: контроль оплачивает уже не партнёр, а свободный резерв', () => {
+  it('H → L: повторную проверку оплачивает уже не Lilly, а свободные деньги', () => {
     const cf = counterfactual(Hresearch(), 'plan:L', content);
     expect(cf.final).toBe('l');
-    const row = cf.diff.find((d) => d.row === 'Кто оплатил контроль');
-    expect(row).toMatchObject({ was: 'Партнёр, в натуре', now: 'Свободный резерв Connaught', changed: true });
+    const row = cf.diff.find((d) => d.row === 'Кто оплатил повторную проверку');
+    expect(row).toMatchObject({ was: 'Lilly, своими людьми', now: 'Свободные деньги Connaught', changed: true });
   });
 
   it('L с контролем → исследование ведёт к финалу R', () => {

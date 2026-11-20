@@ -26,9 +26,9 @@ export function calendarFor(s, planOverride) {
 function calendarHTML(works, weeks = 8) {
   const st = { paid: t('cal.paid'), plan: t('cal.plan'), wait: t('cal.wait'), late: t('cal.late') };
   if (!works.length) return '<p class="empty">' + t('cal.empty') + '</p>';
-  return '<div class="cal"><div class="cal-h"><span>' + t('cal.work') + '</span>'
+  return '<div class="cal" style="--wk:' + weeks + '"><div class="cal-h"><span>' + t('cal.work') + '</span>'
     + Array.from({ length: weeks }, (_, i) => '<span>' + t('cal.week') + ' ' + (i + 1) + '</span>').join('') + '</div>'
-    + works.map((w) => '<div class="cal-r"><b>' + esc(w[0]) + '</b><div class="wk ' + w[3] + '" style="grid-column:' + (w[1] + 1) + '/' + (Math.min(w[2], weeks + 1) + 1) + '">' + st[w[3]] + '<span>' + w[4] + '</span></div></div>').join('')
+    + works.map((w) => '<div class="cal-r"><b>' + esc(w[0]) + '</b><div class="wk ' + w[3] + '" style="grid-column:' + (w[1] + 1) + '/' + (Math.min(w[2], weeks + 1) + 1) + '" title="' + st[w[3]] + '">' + (w[2] - w[1] > 1 ? st[w[3]] : '') + '<span>' + w[4] + '</span></div></div>').join('')
     + '</div>';
 }
 
