@@ -108,3 +108,18 @@ describe('словарь', () => {
     expect(T.ui.units).toBe('ед.');
   });
 });
+
+describe('видимый текст без внутренних кодов сцен', () => {
+  const CODE = /\bS\d+[A-Z]?\b/;
+  it('подписи финала и разбора без кодов', () => {
+    expect(MISSION.review.labels.final).not.toMatch(CODE);
+    expect(MISSION.review.labels.review).not.toMatch(CODE);
+  });
+  it('у каждого кода сцены есть название места для разбора', () => {
+    for (const code of new Set(Object.values(MISSION.review.sceneCode))) {
+      expect(MISSION.review.scenePlace[code]).toBeTruthy();
+      expect(MISSION.review.scenePlace[code]).not.toMatch(CODE);
+    }
+    for (const c of MISSION.review.causes) expect(MISSION.review.scenePlace[c.id.replace(/[LH]$/, '')]).toBeTruthy();
+  });
+});

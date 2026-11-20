@@ -86,9 +86,9 @@ a{color:var(--stamp-blue);text-underline-offset:3px}
 .opp-group.declined .opp{background:var(--paper-light)}
 .opp b{display:block;font:600 15px/1.3 var(--f-ui);margin-bottom:2px}
 .opp p{margin:0;font-size:14px;line-height:1.45;color:var(--text)}
-.chain{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--rule)}
+.chain{display:grid;grid-template-columns:104px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--rule)}
 .chain:first-of-type{border-top:0}
-.chain .c{font:600 15px/1.4 var(--f-acc)}
+.chain .c{font:600 13px/1.35 var(--f-acc);letter-spacing:.04em;color:var(--lamp-deep);overflow-wrap:anywhere}
 .chain dl{margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:4px 12px;font-size:14px}
 .chain dt{color:var(--muted)}.chain dd{margin:0}
 .facts a{white-space:nowrap}
@@ -120,3 +120,7 @@ a{color:var(--stamp-blue);text-underline-offset:3px}
 .notebook .nb-h:first-child{margin-top:0}
 .notebook p{margin:0 0 6px}
 .notebook .nb-how{font-size:13px;color:var(--ink-2)}
+
+/* Разбор: вместо кода сцены в колонке название места — колонка шире, длинное слово переносится */
+.step2{grid-template-columns:104px minmax(0,1fr)}
+.step2 .c{letter-spacing:.04em;line-height:1.35;overflow-wrap:anywhere}

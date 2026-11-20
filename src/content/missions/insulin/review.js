@@ -3,6 +3,11 @@
 
 const sceneCode = { s0: 'S0', s1: 'S1', s2: 'S2', s3: 'S3', s4: 'S4', s5: 'S5', s5m: 'S5M', s6: 'S6', council: 'S7', s8: 'S8', s8n: 'S8N', s9: 'S9', start: 'S7' };
 
+/* Что видит игрок вместо внутреннего кода сцены. */
+const scenePlace = { S0: 'Архив', S1: 'Лаборатория', S2: 'Больница', S3: 'Connaught', S4: 'Телеграф', S5: 'Звонок Клоузу', S5M: 'Морроу', S6: 'Маклеод', S7: 'Совет', S8: 'Проверка', S8N: 'Счёт', S9: 'Последняя единица', S10W: 'Совет' };
+
+const labels = { final: 'Торонто, лето 1922 · Финал', review: 'Архив · Личный разбор' };
+
 const local = (s) => s.plan === 'L' || s.plan === 'H';
 const paid = (l, work) => l.free.spent.some((x) => x.work === work);
 
@@ -194,7 +199,7 @@ const facts = [
   ['11 и 23 января 1922', 'Первое введение экстракта Леонарду Томпсону не дало выраженного улучшения. После более очищенного экстракта Коллипа состояние пациента улучшилось.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/first-clinical-trials'],
   ['25 января 1922', 'Подписан меморандум. Connaught даёт помещение, оборудование и оплату до четырёх помощников минимум на четыре месяца, до 5 000 долларов. При отсутствии коммерческой ценности убыток на Connaught.', 'https://connaught.research.utoronto.ca/co-operative-memorandum'],
   ['Весна 1922', 'Метод очистки не удаётся воспроизвести в нужном масштабе. Возникает тяжёлый дефицит инсулина.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/resurrections-in-toronto'],
-  ['Май 1922', 'Договор с Eli Lilly. Компания получает исключительные права на изготовление для американских рынков, стороны обмениваются знаниями и вместе решают трудности производства.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
+  ['Май 1922', 'Договор с Eli Lilly. Компания получает исключительные права на изготовление для американских рынков. Стороны обмениваются знаниями и вместе решают трудности производства.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
   ['27 июля и 17 августа 1922', 'Бантинг пишет Бесту о вакуумном аппарате у Lilly и ищет деньги на оборудование. Протокол комитета фиксирует пожертвование Connaught в 10 000 долларов.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
   ['1 января 1923', 'Бантинг, Бест и Коллип передают патентные права университету. Доходы от лицензий поддерживают дальнейшие исследования.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
   ['1923', 'В Торонто расширяют производство на средства правительства Онтарио, резервов Connaught и частных пожертвований. Нобелевскую премию получают Бантинг и Маклеод и делят награды с Бестом и Коллипом.', 'https://connaught.research.utoronto.ca/about/history/article3'],
@@ -211,4 +216,4 @@ const fields = [
   ['Действие на ближайшую неделю', 'Одно конкретное действие'],
 ];
 
-export default { sceneCode, pathText, opportunities, causes, facets, altLabels, facts, compareNote, fields, planNames: PLAN_NAMES };
+export default { sceneCode, scenePlace, labels, pathText, opportunities, causes, facets, altLabels, facts, compareNote, fields, planNames: PLAN_NAMES };

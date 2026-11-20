@@ -11,7 +11,7 @@ export function renderFinal(root, ctx) {
   const l = ledger(s);
   if (s.at !== 'final') ctx.store.dispatch({ type: 'go', to: 'final' });
   const S = {
-    id: 'final', bg: F.bg, label: 'Миссия «Инсулин» · ' + F.code, title: F.title, back: null,
+    id: 'final', bg: F.bg, label: MISSION.review.labels.final, title: F.title, back: null,
     speaker: { name: 'Рассказ', role: '', portrait: null, narrator: true }, lines: [F.text], topics: [],
     actions: [{ id: 'result', label: t('ui.result'), hint: 'Что куплено, что сорвано, что отложено', window: { type: 'final', title: F.title, rows: F.rows(l, s), reflect: F.reflect(l, s) }, effect: () => [] }],
     required: ['result'],

@@ -66,8 +66,12 @@ async function afterSign(p, plan, s9) {
 
 async function review(p, expectCode, name, { alts: expectAlts = true } = {}) {
   await p.waitForSelector('.where h1'); await p.waitForTimeout(1700);
+  // Коды сцен игроку не показываются, финал узнаём по заголовку из данных миссии.
+  const TITLES = { S10H: 'Два экземпляра журнала', S10L: 'Тихий стол Маклеода', S10R: 'Ящик остаётся здесь', S10N: 'Восемь на бумаге', S10W: 'Письмо на завтра' };
+  const title = await p.textContent('.where h1');
+  if (title !== TITLES[expectCode]) throw new Error(name + ': ожидался финал ' + expectCode + ' (' + TITLES[expectCode] + '), на экране «' + title + '»');
   const label = await p.textContent('.where .lbl');
-  if (!label.includes(expectCode)) throw new Error(name + ': ожидался финал ' + expectCode + ', на экране «' + label + '»');
+  if (/\bS\d/.test(label)) throw new Error(name + ': в подписи финала остался код сцены: ' + label);
   if (SHOTS) await p.screenshot({ path: SHOTS + '/' + name + '-final.png' });
   await closeWin(p); await next(p);
   await act(p, 'opps'); if (SHOTS) await p.screenshot({ path: SHOTS + '/' + name + '-opps.png' }); await closeWin(p);

@@ -16,8 +16,8 @@ export function timeline(w, c) {
   const s = c.state;
   const steps = pathSteps(s, C);
   const seen = s.costsSeenAt === 'S1' ? 'Расходы после покупки вы заметили в лаборатории, до разговора с донором.' : 'Расходы после покупки вы заметили только в совете.';
-  c.body.insertAdjacentHTML('beforeend', '<p class="intro">' + seen + '</p><ol class="steps">' + steps.map((x) => '<li class="step2"><span class="c">' + x.scene + '</span><div><b>' + esc(x.title) + '</b><p>' + esc(x.text) + '</p></div></li>').join('') + '</ol>'
-    + (s.original ? '<p class="intro">' + t('review.replayBanner') + ' Первое прохождение закончилось финалом ' + MISSION.finals[s.original.final].code + '.</p>' : ''));
+  c.body.insertAdjacentHTML('beforeend', '<p class="intro">' + seen + '</p><ol class="steps">' + steps.map((x) => '<li class="step2"><span class="c">' + (C.scenePlace[x.scene] || x.scene) + '</span><div><b>' + esc(x.title) + '</b><p>' + esc(x.text) + '</p></div></li>').join('') + '</ol>'
+    + (s.original ? '<p class="intro">' + t('review.replayBanner') + ' Первое прохождение закончилось финалом <b>' + esc(MISSION.finals[s.original.final].title) + '</b>.</p>' : ''));
   c.done(ok);
 }
 
@@ -36,7 +36,7 @@ export function opportunities(w, c) {
 export function causes(w, c) {
   const list = causeChains(c.state, C);
   c.body.insertAdjacentHTML('beforeend', '<p class="intro">Каждое последствие объясняется условием, которое было видно до решения.</p>'
-    + list.map((x) => '<div class="chain"><span class="c">' + x.id.replace(/[LH]$/, '') + '</span><dl>'
+    + list.map((x) => '<div class="chain"><span class="c">' + C.scenePlace[x.id.replace(/[LH]$/, '')] + '</span><dl>'
       + '<dt>' + t('review.known') + '</dt><dd>' + esc(x.known) + '</dd><dt>' + t('review.action') + '</dt><dd>' + esc(x.action) + '</dd>'
       + '<dt>' + t('review.outcome') + '</dt><dd>' + esc(x.outcome) + '</dd><dt>' + t('review.basis') + '</dt><dd>' + esc(x.basis) + '</dd></dl></div>').join(''));
   c.done(ok);
@@ -57,7 +57,7 @@ export function counterfactualWin(w, c) {
     + '</div><div data-r="cmp" aria-live="polite"></div>');
   c.foot.innerHTML = '';
   let chosen = null;
-  const fin = (code) => { const F = MISSION.finals[code]; return F.code + ' · ' + F.title; };
+  const fin = (code) => MISSION.finals[code].title;
   c.body.addEventListener('click', (e) => {
     const b = e.target.closest('[data-alt]');
     if (!b) return;

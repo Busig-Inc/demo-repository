@@ -1,13 +1,14 @@
 /* Личный разбор S11: путь, возможности, причины, история, одно изменённое решение, записка. */
 import { t } from '../kit.js';
 import { renderScene } from './scene.js';
+import MISSION from '../../content/missions/insulin/index.js';
 
 export function renderReview(root, ctx) {
   const s = ctx.store.get();
   if (s.at !== 'review') ctx.store.dispatch({ type: 'go', to: 'review' });
   const T = (k) => t('review.tabs.' + k);
   const S = {
-    id: 'review', bg: 'archive', label: 'Миссия «Инсулин» · S11 · ' + t('review.kicker'), title: 'Возвращение в архив', back: null,
+    id: 'review', bg: 'archive', label: MISSION.review.labels.review, title: 'Возвращение в архив', back: null,
     speaker: { name: 'Архивариус', role: 'Хранитель карты', portrait: 'img/portraits/archivist.jpg' },
     lines: ['Вы снова стоите у стола с картой. Флакон лежит в футляре. Архивариус пододвигает к нему вашу папку: «Тяжелее стала». Внутри карта ваших действий.' + (s.original ? ' ' + t('review.replayBanner') : '')],
     topics: [{ t: 'Зачем записка', a: '«Когда вернётесь, положите сюда свою записку. Я каждый раз забываю спросить людей, что они собираются делать потом».' }],
