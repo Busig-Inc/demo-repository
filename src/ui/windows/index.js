@@ -9,8 +9,9 @@ import match from './match.js';
 import calendar from './calendar.js';
 import compare from './compare.js';
 import help from './help.js';
+import notebook from './notebook.js';
 
-export const WINDOWS = { doc, pack, choice, offers, assign, match, calendar, compare, help };
+export const WINDOWS = { doc, pack, choice, offers, assign, match, calendar, compare, help, notebook };
 export function registerWindow(type, fn) { WINDOWS[type] = fn; }
 
 import { final, timeline, opportunities, causes, facts, counterfactualWin, note } from './review.js';

@@ -3,6 +3,7 @@ import { t, ic } from '../kit.js';
 import { useStyles } from '../styles.js';
 import { areasHTML, wireAreas } from '../areas.js';
 import MISSION from '../../content/missions/insulin/index.js';
+import { avatarStyle } from '../../content/portraits.js';
 
 const sceneOf = (href) => (href.startsWith('scene/') ? href.slice(6) : href);
 
@@ -46,7 +47,7 @@ export function renderCity(root, { store, go, signal }) {
     const state = { done: t('city.stateDone'), active: t('city.stateActive'), open: t('city.stateOpen') }[d.st];
     $('dLabel').textContent = t('city.place') + ' ' + n + ' · ' + state;
     $('dTitle').textContent = d.name; $('dPlace').textContent = d.place; $('dDate').textContent = d.date; $('dText').textContent = d.text;
-    $('dPeople').innerHTML = d.people.map((p) => '<span class="person"><span class="ph"></span>' + p + '</span>').join('');
+    $('dPeople').innerHTML = d.people.map((p) => '<span class="person"><span class="ph"' + avatarStyle(p) + '></span>' + p + '</span>').join('');
     $('dTasks').innerHTML = d.tasks.map((x, k) => '<li><span>' + String(k + 1).padStart(2, '0') + '</span>' + x + '</li>').join('');
     $('ctx').hidden = !d.ctx; $('dCtx').textContent = d.ctx || ''; $('dShelf').textContent = t('city.shelf') + ' 02·' + n;
     $('dGoText').textContent = d.st === 'done' ? 'Вернуться: ' + d.name : d.go || t('city.enter');

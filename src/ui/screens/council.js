@@ -60,10 +60,10 @@ export function renderCouncil(root, { store, go, signal }) {
     }
     const gap = s.request !== 'full';
     if (gap) h += '<div class="warn-box">' + ic('risk', 20) + '<div><b>В списке для Бантинга нет людей и проверки</b><p>После покупки аппарату нужны освоение и проверка. Допишите их в список, прежде чем подписывать.</p><button class="btns2" data-r="supplement">Дописать список</button></div></div>';
-    h += '<div class="signsum">' + p.rows.map(([x, y]) => '<div class="r"><span>' + x + '</span><div>' + y + '</div></div>').join('') + '</div>';
     if (cur === 'W') {
       h += '<fieldset class="alloc"><legend>' + t('plan.allocTitle') + '</legend>' + p.alloc.map((x) => '<label class="pk-row"><input type="checkbox" data-alloc="' + x.k + '"' + (alloc[x.k] ? ' checked' : '') + '><span><b>' + x.t + '</b><small>' + x.h + '</small></span><em>1</em></label>').join('') + '<p class="hint">' + t('plan.allocNote') + ' В резерве останется: ' + (3 - Object.values(alloc).filter(Boolean).length) + ' ед.</p></fieldset>';
     }
+    h += '<div class="signsum">' + p.rows.map(([x, y]) => '<div class="r"><span>' + x + '</span><div>' + y + '</div></div>').join('') + '</div>';
     const needRisk = cur === 'N' && !s.riskApproved;
     if (cur === 'N') {
       h += '<div class="risk-box' + (s.riskApproved ? ' ok' : '') + '">' + ic('risk', 20) + '<div><b>' + t('plan.riskTitle') + '</b><p>' + p.risk.text + '</p>'

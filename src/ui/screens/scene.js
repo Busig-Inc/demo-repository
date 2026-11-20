@@ -5,6 +5,7 @@ import { t, ic, mark, esc, fitStage } from '../kit.js';
 import { areasHTML, wireAreas } from '../areas.js';
 import { WINDOWS } from '../windows/index.js';
 import { useStyles } from '../styles.js';
+import { focusX } from '../../content/portraits.js';
 
 const actKey = (sceneId, id) => sceneId + '.' + id;
 
@@ -14,7 +15,7 @@ export function renderScene(root, S, { store, go, signal, kind = 'scene' }) {
   const isDone = (id) => { const a = S.actions.find((x) => x.id === id); return a?.done ? a.done(st()) : !!st().acts?.[actKey(S.id, id)]; };
   const isOpen = (a) => !a.when || a.when(st());
   const portrait = S.speaker.portrait
-    ? ' style="background-image:url(' + S.speaker.portrait + '),var(--img-portrait);background-size:cover,520%;background-position:center top,60% 30%;background-repeat:no-repeat"'
+    ? ' style="background-image:url(' + S.speaker.portrait + '),var(--img-portrait);background-size:cover,520%;background-position:' + focusX(S.speaker.portrait) + '% top,60% 30%;background-repeat:no-repeat"'
     : '';
   const showBack = S.back === 'city' && !st().plan;
 
@@ -23,7 +24,7 @@ export function renderScene(root, S, { store, go, signal, kind = 'scene' }) {
     + (showBack ? '<button class="iconbtn" data-go="city">' + ic('back', 20) + '<span>' + t('ui.toCity') + '</span></button>' : '')
     + '<div class="where"><span class="lbl lamp">' + S.label + '</span><h1>' + S.title + '</h1></div>'
     + '<div data-r="areas">' + areasHTML(st()) + '</div>'
-    + '<div class="tools"><button class="iconbtn" data-r="help" aria-label="' + t('nav.help') + '">' + ic('help', 20) + '</button></div></div>'
+    + '<div class="tools"><button class="iconbtn" data-r="help" aria-label="Записная книжка" title="Записная книжка: кто я, деньги, что дальше">' + ic('help', 20) + '</button></div></div>'
     + '<section class="dlg' + (S.speaker.narrator ? ' nop' : '') + '" aria-label="' + t('s1.talkAria') + '">'
     + '<div class="arch" role="img" aria-label="' + esc(S.speaker.name) + '"' + portrait + '></div>'
     + '<div><div class="who"><b>' + esc(S.speaker.name) + '</b><span>' + esc(S.speaker.role) + '</span></div>'
@@ -124,7 +125,7 @@ export function renderScene(root, S, { store, go, signal, kind = 'scene' }) {
     }
   }, { signal });
   $('winx').addEventListener('click', closeWin, { signal });
-  $('help').addEventListener('click', () => openWin({ id: 'help', window: { type: 'help', title: t('help.title') } }, $('help')), { signal });
+  $('help').addEventListener('click', () => openWin({ id: 'notebook', window: { type: 'notebook', title: 'Записная книжка Беста' } }, $('help')), { signal });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (!win.classList.contains('closed')) closeWin(); else closePop(); } }, { signal });
 
   return { refresh, openWin, say };
