@@ -23,7 +23,6 @@ async function collect(p, { gift = true, exchange = 'narrow', morrow = 'take', f
   await p.click('[data-r="dGo"]'); await p.waitForTimeout(300);
   await act(p, 'pass'); await closeWin(p); await next(p);
   await scene(p, 's1');
-  await act(p, 'journal'); await p.selectOption('#m0', '0'); await p.selectOption('#m1', '1'); await confirm(p); await closeWin(p);
   await act(p, 'request');
   for (const i of full ? [0, 1, 2, 3] : [0]) await pick(p, '.pk[data-i="' + i + '"]');
   await confirm(p); await closeWin(p);
@@ -32,7 +31,6 @@ async function collect(p, { gift = true, exchange = 'narrow', morrow = 'take', f
   await scene(p, 's4'); await act(p, 'bundle'); for (const i of [0, 1, 2, 3]) await pick(p, '.pk[data-i="' + i + '"]'); await confirm(p); await closeWin(p);
   await act(p, 'gift'); await pick(p, '.offer[data-i="0"] .btns2[data-d="' + (gift ? 0 : 2) + '"]'); await closeWin(p);
   await scene(p, 's5'); await act(p, 'offers');
-  await pick(p, '.offer[data-i="1"] .btns2[data-d="0"]');
   if (exchange === 'refused') { await pick(p, '.offer[data-i="0"] .btns2[data-d="1"]'); await closeWin(p); }
   else {
     await pick(p, '.offer[data-i="0"] .btns2[data-d="0"]'); await closeWin(p);
