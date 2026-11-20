@@ -6,7 +6,7 @@ const sceneCode = { s0: 'S0', s1: 'S1', s2: 'S2', s3: 'S3', s4: 'S4', s5: 'S5', 
 const local = (s) => s.plan === 'L' || s.plan === 'H';
 const paid = (l, work) => l.free.spent.some((x) => x.work === work);
 
-const PLAN_NAMES = { L: 'Свой аппарат', H: 'Свой аппарат и проверка силами Lilly', N: 'Заказ Морроу', W: 'Остаться как сейчас', P: 'Пилот у партнёра' };
+const PLAN_NAMES = { L: 'Свой аппарат', H: 'Свой аппарат и проверка силами Lilly', N: 'Заказ Морроу', W: 'Остаться как сейчас', P: 'Пилот на аппарате Lilly' };
 
 /* Что показывается в «Ваш путь». null — запись не попадает в путь. */
 const pathText = {
@@ -192,10 +192,10 @@ const facts = [
   ['Осень 1920', 'Фредерик Бантинг предлагает перевязать протоки поджелудочной железы и выделить вещество, снижающее сахар. Джон Маклеод даёт ему место в лаборатории, ресурсы и помощника.', 'https://collections.library.utoronto.ca/explore/insulin/about/banting'],
   ['Май–декабрь 1921', 'Бантинг и Чарльз Бест получают обнадёживающие результаты на животных. В декабре к очистке экстракта присоединяется биохимик Джеймс Коллип.', 'https://collections.library.utoronto.ca/explore/insulin/about/best'],
   ['11 и 23 января 1922', 'Первое введение экстракта Леонарду Томпсону не дало выраженного улучшения. После более очищенного экстракта Коллипа состояние пациента улучшилось.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/first-clinical-trials'],
-  ['25 января 1922', 'Подписан меморандум. Connaught даёт помещение, оборудование и оплату до четырёх помощников минимум на четыре месяца, до 5 000 долларов. При отсутствии коммерческой ценности убыток на Connaught.', 'https://connaught.research.utoronto.ca/co-operative-memorandum'],
+  ['25 января 1922', 'Подписан меморандум. Connaught даёт помещение, оборудование и оплату до четырёх помощников минимум на четыре месяца, до 5 000 долларов. При отсутствии коммерческой ценности убыток на Connaught.', 'https://connaught.research.utoronto.ca/co-operative-memorandum'],
   ['Весна 1922', 'Метод очистки не удаётся воспроизвести в нужном масштабе. Возникает тяжёлый дефицит инсулина.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/resurrections-in-toronto'],
   ['Май 1922', 'Договор с Eli Lilly. Компания получает исключительные права на изготовление для американских рынков, стороны обмениваются знаниями и вместе решают трудности производства.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
-  ['27 июля и 17 августа 1922', 'Бантинг пишет Бесту о вакуумном аппарате у Lilly и ищет деньги на оборудование. Протокол комитета фиксирует пожертвование Connaught в 10 000 долларов.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
+  ['27 июля и 17 августа 1922', 'Бантинг пишет Бесту о вакуумном аппарате у Lilly и ищет деньги на оборудование. Протокол комитета фиксирует пожертвование Connaught в 10 000 долларов.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
   ['1 января 1923', 'Бантинг, Бест и Коллип передают патентные права университету. Доходы от лицензий поддерживают дальнейшие исследования.', 'https://fisherdigitus.library.utoronto.ca/exhibits/show/insulin100/manufacture-of-insulin'],
   ['1923', 'В Торонто расширяют производство на средства правительства Онтарио, резервов Connaught и частных пожертвований. Нобелевскую премию получают Бантинг и Маклеод и делят награды с Бестом и Коллипом.', 'https://connaught.research.utoronto.ca/about/history/article3'],
 ];

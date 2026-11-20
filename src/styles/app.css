@@ -111,3 +111,12 @@ a{color:var(--stamp-blue);text-underline-offset:3px}
 .start{max-height:calc(100% - 32px);overflow:auto}
 .start:has(.demo:not([hidden])){gap:14px;padding-top:26px}
 .start:has(.demo:not([hidden])) img{width:min(100%,190px)}
+
+/* Неактивная кнопка подписи прилипает к низу панели: без фона сквозь неё виден список */
+.panel .sign[disabled]{background:var(--panel)}
+
+/* Записная книжка */
+.notebook .nb-h{margin:14px 0 4px;font:600 11px/1.4 var(--f-acc);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.notebook .nb-h:first-child{margin-top:0}
+.notebook p{margin:0 0 6px}
+.notebook .nb-how{font-size:13px;color:var(--ink-2)}

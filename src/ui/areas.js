@@ -13,13 +13,13 @@ export function calendarFor(s, planOverride) {
   const rows = plan.cal.map((r) => [...r]);
   for (const r of rows) {
     if (r[0] === RESEARCH && signed) r[3] = s.s9 === 'research' || (s.plan === 'W' && s.wAlloc?.research) ? 'paid' : s.s9 ? 'late' : 'plan';
-    if (r[0] === 'Общая проверка партнёра' && s.s8.cycle) r[3] = 'paid';
+    if (r[0] === 'Повторная проверка Lilly' && s.s8.cycle) r[3] = 'paid';
     if (s.plan === 'W' && signed) {
       const k = { 'Сохранение группы': 'group', 'Передача метода': 'method' }[r[0]];
       if (k && !s.wAlloc?.[k]) r[3] = 'late';
     }
   }
-  if (s.plan === 'L' && s.s8.cycle) rows.push(['Дополнительный контроль', 7, 8, s.s9 === 'control' ? 'paid' : s.s9 ? 'late' : 'plan', 1]);
+  if (s.plan === 'L' && s.s8.cycle) rows.push(['Повторная проверка', 7, 8, s.s9 === 'control' ? 'paid' : s.s9 ? 'late' : 'plan', 1]);
   return rows;
 }
 
@@ -52,7 +52,7 @@ function budgetHTML(s) {
   return '<div class="budget"><div class="bhelp">' + t('budget.help') + '</div>' + free + target + kind + spent + need + '</div>';
 }
 
-const WORKS = { setup: 'Установка и освоение', firstCheck: 'Первая оценка', control: 'Дополнительный контроль', research: RESEARCH, kitting: 'Комплектация, невозвратно', group: 'Сохранение группы', method: 'Передача метода', purchaseRest: 'Остаток покупки' };
+const WORKS = { setup: 'Освоение', firstCheck: 'Первая проверка', control: 'Повторная проверка', research: RESEARCH, kitting: 'Сборка, без возврата', group: 'Сохранение группы', method: 'Передача метода', purchaseRest: 'Остаток покупки' };
 export const workName = (k) => WORKS[k] || k;
 
 function folderHTML(s) {

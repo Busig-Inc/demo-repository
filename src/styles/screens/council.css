@@ -20,7 +20,7 @@ h1,h2,p{margin:0}button{font:inherit;color:inherit;cursor:pointer}
 .budget .st[hidden]{display:none}
 .panel .cal-r{padding-block:3px}
 .say{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:center;padding:10px 12px;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
-.say .arch{width:72px;background-color:var(--panel-2);background-image:url(img/portraits/defries.jpg),var(--img-portrait);background-size:cover,520%;background-position:center,60% 30%;background-repeat:no-repeat;box-shadow:0 0 0 3px var(--panel),0 0 0 4px var(--rule-2)}
+.say .arch{width:72px;background-color:var(--panel-2);background-image:url(img/portraits/defries.jpg),var(--img-portrait);background-size:cover,520%;background-position:92% top,60% 30%;background-repeat:no-repeat;box-shadow:0 0 0 3px var(--panel),0 0 0 4px var(--rule-2)}
 .say p{font-size:14.5px;line-height:1.45}.say b{font:600 13px/1.2 var(--f-acc);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
 .toast{position:absolute;z-index:9;left:50%;bottom:30px;transform:translateX(-50%);display:none;align-items:center;gap:10px;padding:10px 16px;background:var(--text);color:var(--bg);border-radius:var(--r);font-size:14px;font-weight:600}
 .toast.on{display:inline-flex}
